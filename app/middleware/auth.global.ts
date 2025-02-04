@@ -1,0 +1,41 @@
+import { $api } from '~/composables/api'
+import { useUser } from '~/composables/auth'
+import type { User } from '~/types'
+
+interface APIResponse {
+  statusMessage: string
+  statusCode: number
+  data: User
+}
+
+export default defineNuxtRouteMiddleware(async (to) => {
+  const user = useUser()
+
+  try {
+    const response: APIResponse = await $api('/auth/user', {
+      method: 'GET',
+    })
+
+    if (response.data) {
+      user.value = response.data
+
+      // Redirect authenticated users to workspace if they try to access auth pages
+      if (to.path.startsWith('/auth')) {
+        return navigateTo('/workspace')
+      }
+    }
+    else {
+      // Only redirect to signin if trying to access workspace routes
+      if (to.path.startsWith('/workspace')) {
+        return navigateTo('/auth/signin')
+      }
+    }
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  catch (error) {
+    // Only redirect to signin if trying to access workspace routes
+    if (to.path.startsWith('/workspace')) {
+      return navigateTo('/auth/signin')
+    }
+  }
+})

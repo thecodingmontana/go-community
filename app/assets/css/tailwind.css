@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@config "../../../tailwind.config.js";
 
 @layer base {
   :root {
@@ -72,6 +71,7 @@
 @layer base {
   * {
     @apply border-border;
+    @apply font-geist;
   }
   body {
     @apply bg-background text-foreground;

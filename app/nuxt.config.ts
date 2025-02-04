@@ -6,8 +6,14 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@nuxt/icon',
     '@nuxt/eslint',
+    '@nuxtjs/google-fonts',
+    'nuxt-og-image',
   ],
   devtools: { enabled: true },
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL,
+    name: process.env.NUXT_PUBLIC_SITE_NAME,
+  },
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
     fallback: 'light', // fallback value if not system preference found
@@ -19,13 +25,31 @@ export default defineNuxtConfig({
     storage: 'localStorage', // or 'sessionStorage' or 'cookie'
     storageKey: 'go-community-color-mode',
   },
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.NUXT_PUBLIC_API_URL,
+    },
+  },
   future: {
     compatibilityVersion: 4,
   },
   compatibilityDate: '2024-11-01',
+  nitro: {
+    devProxy: {
+      '/api/v1/**': {
+        target: process.env.NUXT_PUBLIC_API_TARGET,
+        changeOrigin: true,
+      },
+    },
+  },
   eslint: {
     config: {
       stylistic: true,
+    },
+  },
+  googleFonts: {
+    families: {
+      Geist: true,
     },
   },
   shadcn: {
