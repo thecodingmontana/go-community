@@ -43,3 +43,6 @@ export interface ModalStore {
   isOpen: boolean
   data: ModalData
 }
+
+export const githubUrl = 'https://github.com/thecodingmontana/go-community.git'
+export const twitterUrl = 'https://x.com/codewithmontana'

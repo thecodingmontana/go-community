@@ -38,5 +38,6 @@ defineOgImageComponent('Nuxt', {
       :rich-colors="true"
       :close-button="true"
     />
+    <AppFooter />
   </main>
 </template>

@@ -58,6 +58,10 @@
   "devDependencies": {
     "@iconify-json/akar-icons": "^1.2.2",
     "@iconify-json/devicon": "^1.2.13",
+    "@iconify-json/logos": "^1.2.4",
+    "@iconify-json/simple-icons": "^1.2.23",
+    "@iconify-json/vscode-icons": "^1.2.11",
+    "t": "^0.5.1",
     "typescript": "^5.7.3"
   }
 }
