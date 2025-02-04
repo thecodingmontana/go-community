@@ -8,6 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
+	"github.com/thecodingmontana/go-community/internal/routes"
 )
 
 func main() {
@@ -27,6 +28,9 @@ func main() {
 	// Middlewares
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
+
+	// Register routes and handlers
+	routes.RegisterRoutes(router)
 
 	server := &http.Server{
 		Handler: router,
