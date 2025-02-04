@@ -1,0 +1,38 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Go community",
+  "keywords": [
+    "go",
+    "nuxtjs",
+    "websockets",
+    "shadcn-ui"
+  ],
+  "homepage": "https://github.com/thecodingmontana/go-community#readme",
+  "bugs": {
+    "url": "https://github.com/thecodingmontana/go-community/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecodingmontana/go-community.git"
+  },
+  "license": "MIT",
+  "author": "thecodingmontana",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.15.4",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {},
+  "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a"
+}
