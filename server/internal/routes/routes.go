@@ -4,11 +4,12 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/thecodingmontana/go-community/internal/database/models"
 	"github.com/thecodingmontana/go-community/internal/handlers"
 	"github.com/thecodingmontana/go-community/pkg/utils"
 )
 
-func RegisterRoutes(router chi.Router) {
+func RegisterRoutes(router chi.Router, queries *models.Queries) {
 	router.Route("/v1/api", func(apiRoute chi.Router) {
 		apiRoute.Get("/healthz", handlers.HealthzHandler)
 	})
