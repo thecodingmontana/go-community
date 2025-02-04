@@ -17,6 +17,7 @@ import (
 	"github.com/thecodingmontana/go-community/internal/database/models"
 	"github.com/thecodingmontana/go-community/internal/routes"
 	"github.com/thecodingmontana/go-community/pkg/database"
+	"github.com/go-chi/cors"
 )
 
 var tokenAuth *jwtauth.JWTAuth
@@ -119,6 +120,14 @@ func main() {
 	// Middlewares
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:3001", "https://use-odama.thecodingmontana.com"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		MaxAge:           300,
+		AllowCredentials: true,
+	}))
 
 	// Register routes and handlers
 	routes.RegisterRoutes(router, queries, tokenAuth)
