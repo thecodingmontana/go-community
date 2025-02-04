@@ -18,10 +18,17 @@ func main() {
 	}
 
 	PORT, isPortEnv := os.LookupEnv("PORT")
+	DATABASE_URL, isDBURLEnv := os.LookupEnv("DATABASE_URL")
 
 	if !isPortEnv {
 		log.Fatalf("Missing PORT env variable!")
 	}
+
+	if !isDBURLEnv {
+		log.Fatalf("Missing DATABASE_URL env variable!")
+	}
+
+	log.Print(DATABASE_URL)
 
 	router := chi.NewRouter()
 
