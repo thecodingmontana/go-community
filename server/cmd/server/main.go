@@ -4,9 +4,11 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
 	"github.com/go-chi/jwtauth/v5"
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
@@ -17,7 +19,6 @@ import (
 	"github.com/thecodingmontana/go-community/internal/database/models"
 	"github.com/thecodingmontana/go-community/internal/routes"
 	"github.com/thecodingmontana/go-community/pkg/database"
-	"github.com/go-chi/cors"
 )
 
 var tokenAuth *jwtauth.JWTAuth
@@ -45,6 +46,7 @@ func main() {
 	OAUTH_GITHUB_CLIENT_SECRET, githubClientIDFound := os.LookupEnv("OAUTH_GITHUB_CLIENT_SECRET")
 	OAUTH_GITHUB_REDIRECT_URI, githubRedirectURIFound := os.LookupEnv("OAUTH_GITHUB_REDIRECT_URI")
 	SESSION_SECRET, isSessionSecretFound := os.LookupEnv("SESSION_SECRET")
+	ALLOWED_ORIGINS, isAllowedOrigins := os.LookupEnv("ALLOWED_ORIGINS")
 
 	if !isPortEnv {
 		log.Fatalf("Missing PORT env variable!")
@@ -81,6 +83,12 @@ func main() {
 	if !isSessionSecretFound {
 		log.Fatalf("Missing SESSION_SECRET env variable!")
 	}
+
+	if !isAllowedOrigins {
+		log.Fatalf("Missing ALLOWED_ORIGINS env variable!")
+	}
+
+	originsList := strings.Split(ALLOWED_ORIGINS, ",")
 
 	// Database connection
 	conn := database.ConnectDB(DATABASE_URL)
@@ -121,7 +129,7 @@ func main() {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 	router.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:3001", "https://use-odama.thecodingmontana.com"},
+		AllowedOrigins:   originsList,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
