@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'use-odama',
+      name: 'go-community',
       port: '3002',
       exec_mode: 'cluster',
       instances: 1,
