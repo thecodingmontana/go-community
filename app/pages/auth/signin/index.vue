@@ -2,7 +2,17 @@
 import OauthProviders from '~/components/auth/oauth/OauthProviders.vue'
 import SigninForm from '~/components/auth/signin/SigninForm.vue'
 import SvgBackgroundPattern from '~/components/svgs/SvgBackgroundPattern.vue'
-import SvgUseOdama from '~/components/svgs/SvgUseOdama.vue'
+import SvgGopher from '~/components/svgs/SvgGopher.vue'
+
+defineOgImageComponent('Nuxt', {
+  headline: 'Hello 👋',
+  title: 'Go Community - Signin',
+  description: 'Go Community is a real-time app using Go WebSockets (Chi), PostgreSQL, and Nuxt.js. 🚀',
+})
+
+useHead({
+  titleTemplate: '%s - Signin',
+})
 </script>
 
 <template>
@@ -14,31 +24,25 @@ import SvgUseOdama from '~/components/svgs/SvgUseOdama.vue'
             <SvgBackgroundPattern class="size-full" />
           </div>
           <div class="relative z-10 flex h-screen w-screen flex-col overflow-hidden overflow-y-auto">
-            <div
-              class="container relative flex min-w-full shrink-0 items-center justify-between px-10 pb-4 transition-all lg:px-20 xl:px-36"
-            >
-              <div class="flex items-center gap-x-2 py-10">
-                <a
-                  class="h-[30px] w-[133px]"
-                  href="/"
-                >
-                  <SvgUseOdama />
-                </a>
-              </div>
-              <div class="flex flex-col items-end text-center text-sm font-medium sm:flex-row sm:items-center sm:gap-2">
-                New to use-odama?
-                <NuxtLink
-                  class="font-semibold text-brand dark:text-primary hover:underline"
-                  to="/auth/signup"
-                >
-                  Signup
-                </NuxtLink>
-              </div>
+            <div class="flex flex-col items-center text-center text-sm font-medium sm:flex-row sm:items-center sm:justify-center py-5 sm:gap-2">
+              New to go-community?
+              <NuxtLink
+                class="font-semibold text-brand dark:text-primary hover:underline"
+                to="/auth/signup"
+              >
+                Signup
+              </NuxtLink>
             </div>
             <div
               class="container mx-auto flex h-[100vh-60px] max-w-lg grow flex-col justify-center px-10 transition-all lg:max-w-md lg:px-5"
             >
               <div class="relative flex flex-col space-y-6">
+                <NuxtLink
+                  class="flex flex-col items-center"
+                  to="/"
+                >
+                  <SvgGopher class="h-[4rem] w-auto" />
+                </NuxtLink>
                 <div class="space-y-1 text-center">
                   <h3 class="text-3xl font-bold text-brand dark:text-primary">
                     Hello Again!
@@ -56,26 +60,6 @@ import SvgUseOdama from '~/components/svgs/SvgUseOdama.vue'
                   <hr class="w-full">
                 </div>
                 <OauthProviders />
-                <span class="flex items-center justify-center py-6">
-                  <p class="whitespace-pre-line text-center text-sm">
-                    By signing in, you agree to our
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://plane.so/legals/terms-and-conditions"
-                    ><span
-                      class="text-sm font-medium underline hover:cursor-pointer"
-                    >Terms of Service</span></a>
-                    and
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://plane.so/legals/privacy-policy"
-                    ><span
-                      class="text-sm font-medium underline hover:cursor-pointer"
-                    >Privacy Policy</span></a>.
-                  </p>
-                </span>
               </div>
             </div>
           </div>

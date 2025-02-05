@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { PlusIcon } from 'lucide-vue-next'
 import CopyToClipboard from '~/components/homepage/CopyToClipboard.vue'
 import { Button } from '~/components/ui/button'
 import { githubUrl } from '~/types'
+import SvgGopher from '~/components/svgs/SvgGopher.vue'
 </script>
 
 <template>
@@ -10,16 +10,8 @@ import { githubUrl } from '~/types'
     class="mx-auto grid min-h-[calc(100vh-300px)] max-w-5xl flex-col items-center justify-center gap-4 text-center"
   >
     <div class="p-4">
-      <div class="mb-10 flex items-center justify-center gap-3">
-        <Icon
-          name="logos:gopher"
-          class="size-[5rem]"
-        />
-        <PlusIcon class="h-8 w-8" />
-        <Icon
-          name="vscode-icons:file-type-nuxt"
-          class="size-[5.3rem]"
-        />
+      <div class="mb-2 flex items-center justify-center gap-3">
+        <SvgGopher class="h-[5.5rem] w-auto" />
       </div>
       <h1
         class="text-balance bg-gradient-to-tr from-black/70 via-black to-black/60 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-zinc-400/10 dark:via-white/90 dark:to-white/20 sm:text-5xl md:text-6xl lg:text-7xl"

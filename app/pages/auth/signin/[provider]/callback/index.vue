@@ -4,9 +4,20 @@ import { toast } from 'vue-sonner'
 
 const { params } = useRoute()
 
+const provider = params?.provider as string
+
+defineOgImageComponent('Nuxt', {
+  headline: 'Hello 👋',
+  title: `Go Community - ${provider.charAt(0).toUpperCase()} Callback`,
+  description: 'Go Community is a real-time app using Go WebSockets (Chi), PostgreSQL, and Nuxt.js. 🚀',
+})
+
+useHead({
+  titleTemplate: `%s - ${provider.charAt(0).toUpperCase()} Callback`,
+})
+
 onBeforeMount(async () => {
   try {
-    const provider = params?.provider as string
     const res: {
       statusMessage: string
       statusCode: number
