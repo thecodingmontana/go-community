@@ -45,8 +45,8 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
 
-          echo "Rebuilding and restarting Docker containers."
-        #   docker compose down
-        #   docker compose up --build -d
+          echo "Rebuilding Docker container."
 
-        #   echo "Deployment completed!"
+          docker compose up --build -d
+
+          echo "Deployment completed!"
