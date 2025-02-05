@@ -32,7 +32,7 @@ export type ModalType = 'createWorkspace'
   | 'signout' | 'inviteMember' | 'mobileMenu'
 
 export interface ModalData {
-  workspace?: {
+  chat?: {
     name: string
     id: string
   }

@@ -69,7 +69,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       codeSent: false,
     })
 
-    return navigateTo(`/workspace`)
+    return navigateTo(`/chat`)
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   catch (error: any) {

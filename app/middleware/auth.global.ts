@@ -19,22 +19,22 @@ export default defineNuxtRouteMiddleware(async (to) => {
     if (response.data) {
       user.value = response.data
 
-      // Redirect authenticated users to workspace if they try to access auth pages
+      // Redirect authenticated users to chat if they try to access auth pages
       if (to.path.startsWith('/auth')) {
-        return navigateTo('/workspace')
+        return navigateTo('/chat')
       }
     }
     else {
-      // Only redirect to signin if trying to access workspace routes
-      if (to.path.startsWith('/workspace')) {
+      // Only redirect to signin if trying to access chat routes
+      if (to.path.startsWith('/chat')) {
         return navigateTo('/auth/signin')
       }
     }
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   catch (error) {
-    // Only redirect to signin if trying to access workspace routes
-    if (to.path.startsWith('/workspace')) {
+    // Only redirect to signin if trying to access chat routes
+    if (to.path.startsWith('/chat')) {
       return navigateTo('/auth/signin')
     }
   }
