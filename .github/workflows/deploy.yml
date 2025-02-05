@@ -42,7 +42,8 @@ jobs:
         script: |
           echo "Pulling changes from GitHub."
           cd ~/projects/go-community
-          git pull origin main
+          git fetch origin main
+          git reset --hard origin/main
 
           echo "Rebuilding and restarting Docker containers."
           docker compose down
