@@ -20,8 +20,6 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: '22'
-        cache: 'pnpm'
-        cache-dependency-path: '**/pnpm-lock.yaml'
 
     - name: Setup SSH
       run: |
@@ -63,6 +61,10 @@ jobs:
 
           echo "Building the Nuxt app and starting pm2 in app directory."
           cd ~/projects/go-community/app
+
+          # Load NVM
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
           # Install global dependencies if needed
           command -v pnpm &> /dev/null || npm install -g pnpm
