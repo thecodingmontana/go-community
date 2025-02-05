@@ -2,8 +2,9 @@ name: Deploy to VPS
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   deploy:
@@ -11,6 +12,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 9
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '22'
+        cache: 'pnpm'
+        cache-dependency-path: '**/pnpm-lock.yaml'
 
     - name: Setup SSH
       run: |
@@ -67,6 +78,6 @@ jobs:
           pnpm run build
           
           # Restart application
-          # pm2 restart ecosystem.config.cjs || pm2 start ecosystem.config.cjs
+          pm2 restart ecosystem.config.cjs || pm2 start ecosystem.config.cjs
           
           echo "Deployment completed successfully!"
