@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"log"
 	"sync"
 
@@ -8,19 +9,19 @@ import (
 )
 
 type Hub struct {
-	Clients    map[*types.Client]bool // maps all connected clients
-	Broadcast  chan []byte            // channel for broadcasting messages
-	Register   chan *types.Client     // channel for registering clients
-	Unregister chan *types.Client     // channel for unregistering clients
-	Mutex      sync.Mutex             // thread-safe operations
+	Clients    map[*Client]bool // maps all connected clients
+	Broadcast  chan []byte      // channel for broadcasting messages
+	Register   chan *Client     // channel for registering clients
+	Unregister chan *Client     // channel for unregistering clients
+	Mutex      sync.Mutex       // thread-safe operations
 }
 
 func NewHub() *Hub {
 	return &Hub{
-		Clients:    make(map[*types.Client]bool),
+		Clients:    make(map[*Client]bool),
 		Broadcast:  make(chan []byte),
-		Register:   make(chan *types.Client),
-		Unregister: make(chan *types.Client),
+		Register:   make(chan *Client),
+		Unregister: make(chan *Client),
 	}
 }
 
@@ -43,6 +44,9 @@ func (hub *Hub) Run() {
 		case message := <-hub.Broadcast:
 			// Send message to all clients
 			hub.Mutex.Lock()
+			var msg types.SocketMessage
+			json.Unmarshal(message, &msg)
+			log.Print(msg)
 			log.Printf("Broadcasting message to %d clients", len(hub.Clients))
 			for client := range hub.Clients {
 				select {

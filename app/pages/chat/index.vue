@@ -12,17 +12,20 @@ defineOgImageComponent('Nuxt', {
 useHead({
   titleTemplate: '%s - Chat',
 })
+
+const { status } = useWs()
 </script>
 
 <template>
   <section class="flex h-screen w-full flex-col bg-[#f8f8f8]">
+    {{ status }}
     <!-- <ChatHeader :group="props?.group" :status="status" />
-    <ChatMessages
-      :socketMessages="messages"
-      :id="group?.id as string"
-      :profileId="profile?.id"
-    />
-    <ChatInput :send="send" /> -->
+        <ChatMessages
+          :socketMessages="messages"
+          :id="group?.id as string"
+          :profileId="profile?.id"
+        />
+        <ChatInput :send="send" /> -->
     <!-- <ChatInput :send="send" /> -->
   </section>
 </template>

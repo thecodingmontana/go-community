@@ -1,18 +1,9 @@
 package types
 
-import (
-	"github.com/gorilla/websocket"
-)
-
 type APIResponse struct {
 	StatusCode    int         `json:"statusCode"`
 	StatusMessage string      `json:"statusMessage"`
 	Data          interface{} `json:"data,omitempty"`
-}
-
-type Client struct {
-	Conn *websocket.Conn // websocket connection
-	Send chan []byte     // channel for sending messages
 }
 
 type MailBody struct {
@@ -33,4 +24,11 @@ type User struct {
 	Username      string `json:"username"`
 	EmailVerified bool   `json:"emailVerified"`
 	Avatar        string `json:"avatar"`
+}
+
+type SocketMessage struct {
+	ID       int    `json:"id"`
+	Content  string `json:"content"`
+	UserID   string `json:"user_id"`
+	ImageURL string `json:"image_url"`
 }

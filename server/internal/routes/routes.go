@@ -36,11 +36,14 @@ func RegisterRoutes(router chi.Router, queries *models.Queries, tokenAuth *jwtau
 
 		// protected ws routes (JWT required)
 		apiRoute.Route("/ws", func(wsRoute chi.Router) {
-			wsRoute.Use(jwtauth.Verifier(tokenAuth))
-			wsRoute.Use(jwtauth.Authenticator(tokenAuth))
+			hub := utils.NewHub()
+			go hub.Run()
 
-			wsRoute.Get("/", func(w http.ResponseWriter, r *http.Request) {
+			// wsRoute.Use(jwtauth.Verifier(tokenAuth))
+			// wsRoute.Use(jwtauth.Authenticator(tokenAuth))
 
+			wsRoute.Get("/chat", func(res http.ResponseWriter, req *http.Request) {
+				handlers.ServeWSChatHandler(res, req, hub, queries)
 			})
 		})
 	})
