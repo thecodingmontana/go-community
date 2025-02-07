@@ -1,15 +1,12 @@
 import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack'
 
-export const $api = async <
+export async function $api<
   DefaultT = unknown,
   DefaultR extends NitroFetchRequest = NitroFetchRequest,
   T = DefaultT,
   R extends NitroFetchRequest = DefaultR,
   O extends NitroFetchOptions<R> = NitroFetchOptions<R>,
->(
-  url: R,
-  options?: O,
-) => {
+>(url: R, options?: O) {
   const config = useRuntimeConfig()
   const auth_token = useCookie('auth_token')
 

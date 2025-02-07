@@ -1,6 +1,6 @@
+import type { User } from '~/types'
 import { $api } from '~/composables/api'
 import { useUser } from '~/composables/auth'
-import type { User } from '~/types'
 
 interface APIResponse {
   statusMessage: string

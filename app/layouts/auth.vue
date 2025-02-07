@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Sidebar from '../components/chat/Sidebar.vue'
 import { Toaster } from '~/components/ui/sonner'
 
 useHead({
@@ -34,10 +33,7 @@ defineOgImageComponent('Nuxt', {
 <template>
   <main>
     <NuxtLoadingIndicator />
-    <div class="flex">
-      <slot />
-      <Sidebar />
-    </div>
+    <slot />
     <Toaster
       :rich-colors="true"
       :close-button="true"

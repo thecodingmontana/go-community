@@ -48,8 +48,6 @@ const onSubmit = form.handleSubmit(async (values) => {
       },
     })
 
-    console.log(res)
-
     const nuxtApiRes = await $fetch('/api/auth/auth_token', {
       method: 'POST',
       body: {
@@ -57,8 +55,6 @@ const onSubmit = form.handleSubmit(async (values) => {
         expires_at: res.data.expires_at,
       },
     })
-
-    console.log(nuxtApiRes)
 
     toast.success(nuxtApiRes.message, {
       position: 'top-center',

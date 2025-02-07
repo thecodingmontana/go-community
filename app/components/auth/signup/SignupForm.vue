@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import SignupUniqueCodeForm from './SignupUniqueCodeForm.vue'
 import SignupCompleteForm from './SignupCompleteForm.vue'
+import SignupUniqueCodeForm from './SignupUniqueCodeForm.vue'
 
 const email = ref('')
 const isCodeSent = ref(false)
 
-const onResetForm = ({ mail, codeSent }: { mail: string, codeSent: boolean }) => {
+function onResetForm({ mail, codeSent }: { mail: string, codeSent: boolean }) {
   email.value = mail
   isCodeSent.value = codeSent
 }

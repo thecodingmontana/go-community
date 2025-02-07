@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate'
 import { Loader } from 'lucide-vue-next'
+import { useForm } from 'vee-validate'
 import { toast } from 'vue-sonner'
 import ResendCodeButton from '../ResendCodeButton.vue'
-import { signinFormSchema } from '~/types'
-import { cn } from '~/lib/utils'
 import {
   FormControl,
   FormField,
@@ -12,6 +10,8 @@ import {
   FormLabel,
   FormMessage,
 } from '~/components/ui/form'
+import { cn } from '~/lib/utils'
+import { signinFormSchema } from '~/types'
 
 const props = defineProps<{
   email: string
@@ -83,7 +83,7 @@ const isSubmitting = computed(() => {
   return false
 })
 
-const onClear = () => {
+function onClear() {
   props?.onResetForm({
     mail: '',
     codeSent: false,
@@ -108,7 +108,7 @@ const onClear = () => {
   >
     <div class="space-y-2">
       <div class="space-y-1">
-        <label class="text-sm text-onboarding-text-300 font-medium">Email</label>
+        <label class="text-onboarding-text-300 text-sm font-medium">Email</label>
         <div
           :class="
             cn(
@@ -123,7 +123,7 @@ const onClear = () => {
             placeholder="name@example.com"
             :value="props.email"
             disabled
-            class="block bg-transparent text-sm placeholder-custom-text-400 focus:outline-none rounded-md border-custom-border-200 px-3 py-2 disable-autofill-style h-[46px] w-full placeholder:text-onboarding-text-400 border-0"
+            class="placeholder:text-custom-text-400 border-custom-border-200 disable-autofill-style placeholder:text-onboarding-text-400 block h-[46px] w-full rounded-md border-0 bg-transparent px-3 py-2 text-sm focus:outline-none"
           >
           <svg
             width="24"
@@ -134,7 +134,7 @@ const onClear = () => {
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="bg-background rounded-full absolute right-3 h-5 w-5 hover:cursor-pointer"
+            class="absolute right-3 size-5 rounded-full bg-background hover:cursor-pointer"
             @click="onClear"
           >
             <circle
@@ -152,7 +152,7 @@ const onClear = () => {
         name="code"
       >
         <FormItem class="space-y-1">
-          <FormLabel class="text-sm text-onboarding-text-300 font-medium">
+          <FormLabel class="text-onboarding-text-300 text-sm font-medium">
             Code
           </FormLabel>
           <FormControl>
@@ -164,11 +164,11 @@ const onClear = () => {
                 autocomplete="off"
                 placeholder="gets-sets-flys"
                 v-bind="componentField"
-                class="block bg-transparent text-sm placeholder-custom-text-400 focus:outline-none rounded-md border-custom-border-200 px-3 py-2 h-[46px] w-full placeholder:text-onboarding-text-400 border-0 focus:bg-none active:bg-transparent"
+                class="placeholder:text-custom-text-400 border-custom-border-200 placeholder:text-onboarding-text-400 block h-[46px] w-full rounded-md border-0 bg-transparent px-3 py-2 text-sm focus:bg-none focus:outline-none active:bg-transparent"
               >
             </div>
           </FormControl>
-          <div class="flex items-center gap-1 text-xs text-red-600 px-0.5">
+          <div class="flex items-center gap-1 px-0.5 text-xs text-red-600">
             <svg
               v-if="form.errors.value.code"
               xmlns="http://www.w3.org/2000/svg"

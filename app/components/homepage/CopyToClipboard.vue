@@ -12,7 +12,7 @@ const props = defineProps<{
 const isCopied = ref(false)
 const text = ref(props?.text)
 
-const copyToClipboard = async () => {
+async function copyToClipboard() {
   isCopied.value = true
   setTimeout(() => {
     isCopied.value = false

@@ -4,9 +4,9 @@ import { githubUrl, twitterUrl } from '~/types'
 </script>
 
 <template>
-  <footer class="absolute bottom-0 left-0 right-0 px-4 py-6">
+  <footer class="absolute inset-x-0 bottom-0 px-4 py-6">
     <div class="container flex items-center p-0">
-      <CodeIcon class="mr-2 h-6 w-6" />
+      <CodeIcon class="mr-2 size-6" />
       <p class="text-sm">
         Built by {{ " " }}
         <NuxtLink

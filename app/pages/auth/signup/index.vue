@@ -4,6 +4,10 @@ import SignupForm from '~/components/auth/signup/SignupForm.vue'
 import SvgBackgroundPattern from '~/components/svgs/SvgBackgroundPattern.vue'
 import SvgGopher from '~/components/svgs/SvgGopher.vue'
 
+definePageMeta({
+  layout: 'auth',
+})
+
 defineOgImageComponent('Nuxt', {
   headline: 'Hello 👋',
   title: 'Go Community - Signup',
@@ -27,11 +31,11 @@ useHead({
             class="relative z-10 flex h-screen w-screen flex-col overflow-hidden overflow-y-auto"
           >
             <div
-              class="flex flex-col items-center text-center text-sm font-medium sm:flex-row sm:items-center sm:justify-center py-5 sm:gap-2"
+              class="flex flex-col items-center py-5 text-center text-sm font-medium sm:flex-row sm:items-center sm:justify-center sm:gap-2"
             >
               Already have an account?
               <NuxtLink
-                class="font-semibold text-brand dark:text-primary hover:underline"
+                class="font-semibold text-brand hover:underline dark:text-primary"
                 to="/auth/signin"
               >
                 Signin
@@ -45,7 +49,7 @@ useHead({
                   class="flex flex-col items-center"
                   to="/"
                 >
-                  <SvgGopher class="h-[4rem] w-auto" />
+                  <SvgGopher class="h-16 w-auto" />
                 </NuxtLink>
                 <div class="space-y-1 text-center">
                   <h3 class="text-3xl font-bold text-brand dark:text-primary">

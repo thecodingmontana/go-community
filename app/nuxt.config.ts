@@ -8,6 +8,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxtjs/google-fonts',
     'nuxt-og-image',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
   ],
   devtools: { enabled: true },
   site: {
@@ -51,6 +53,16 @@ export default defineNuxtConfig({
     families: {
       Geist: true,
     },
+  },
+  pinia: {
+    storesDirs: ['./stores/**'],
+  },
+  piniaPluginPersistedstate: {
+    storage: 'cookies',
+    cookieOptions: {
+      sameSite: 'lax',
+    },
+    debug: true,
   },
   shadcn: {
     /**

@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import type { DialogContentEmits, DialogContentProps } from 'radix-vue'
+import type { HTMLAttributes } from 'vue'
 import { X } from 'lucide-vue-next'
 import {
   DialogClose,
   DialogContent,
-  type DialogContentEmits,
-  type DialogContentProps,
+
   DialogOverlay,
   DialogPortal,
   useForwardPropsEmits,
 } from 'radix-vue'
-import { computed, type HTMLAttributes } from 'vue'
+import { computed } from 'vue'
 import { cn } from '~/lib/utils'
 
 const props = defineProps<DialogContentProps & { class?: HTMLAttributes['class'] }>()
@@ -48,9 +49,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
         <slot />
 
         <DialogClose
-          class="absolute top-3 right-3 p-0.5 transition-colors rounded-md hover:bg-secondary"
+          class="absolute right-3 top-3 rounded-md p-0.5 transition-colors hover:bg-secondary"
         >
-          <X class="w-4 h-4" />
+          <X class="size-4" />
           <span class="sr-only">Close</span>
         </DialogClose>
       </DialogContent>

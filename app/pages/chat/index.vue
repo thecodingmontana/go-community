@@ -15,7 +15,14 @@ useHead({
 </script>
 
 <template>
-  <section>
-    Chat
+  <section class="flex h-screen w-full flex-col bg-[#f8f8f8]">
+    <!-- <ChatHeader :group="props?.group" :status="status" />
+    <ChatMessages
+      :socketMessages="messages"
+      :id="group?.id as string"
+      :profileId="profile?.id"
+    />
+    <ChatInput :send="send" /> -->
+    <!-- <ChatInput :send="send" /> -->
   </section>
 </template>

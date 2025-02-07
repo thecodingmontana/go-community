@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 
-const oauthSignin = (provider: string) => {
+function oauthSignin(provider: string) {
   window.location.href = `${config.public.baseURL}/auth/signin/oauth/${provider}`
 }
 </script>

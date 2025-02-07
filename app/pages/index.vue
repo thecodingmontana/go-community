@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import CopyToClipboard from '~/components/homepage/CopyToClipboard.vue'
+import SvgGopher from '~/components/svgs/SvgGopher.vue'
 import { Button } from '~/components/ui/button'
 import { githubUrl } from '~/types'
-import SvgGopher from '~/components/svgs/SvgGopher.vue'
 </script>
 
 <template>
@@ -19,13 +19,13 @@ import SvgGopher from '~/components/svgs/SvgGopher.vue'
         Go Community
       </h1>
       <p
-        class="text-balance mb-10 mt-4 text-center text-muted-foreground md:text-lg lg:text-xl"
+        class="mb-10 mt-4 text-balance text-center text-muted-foreground md:text-lg lg:text-xl"
       >
         Go Community is a real-time web app using Go WebSockets (Chi Router), PostgreSQL, and a Nuxt.js frontend, showcasing WebSocket integration in Go with JS frameworks (Nuxtjs 😜) 🚀.
       </p>
       <div class="mb-10">
         <div class="mx-auto max-w-[430px]">
-          <CopyToClipboard :text="'git clone ' + githubUrl" />
+          <CopyToClipboard :text="`git clone ${githubUrl}`" />
         </div>
       </div>
       <div class="flex justify-center gap-4">
@@ -49,7 +49,9 @@ import SvgGopher from '~/components/svgs/SvgGopher.vue'
           size="lg"
           as-child
         >
-          <NuxtLink to="/auth/signin">Get Started</NuxtLink>
+          <NuxtLink to="/auth/signin">
+            Get Started
+          </NuxtLink>
         </Button>
       </div>
     </div>

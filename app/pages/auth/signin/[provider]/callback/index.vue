@@ -6,6 +6,10 @@ const { params } = useRoute()
 
 const provider = params?.provider as string
 
+definePageMeta({
+  layout: 'auth',
+})
+
 defineOgImageComponent('Nuxt', {
   headline: 'Hello 👋',
   title: `Go Community - ${provider.charAt(0).toUpperCase()} Callback`,
@@ -59,7 +63,7 @@ onBeforeMount(async () => {
 <template>
   <div class="grid min-h-screen place-content-center">
     <div class="flex flex-col items-center gap-y-0.5">
-      <Loader class="animate-spin size-10" />
+      <Loader class="size-10 animate-spin" />
       <p class="text-sm text-muted-foreground">
         Redirecting
       </p>
