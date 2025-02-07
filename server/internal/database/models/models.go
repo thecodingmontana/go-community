@@ -8,6 +8,16 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Message struct {
+	ID        string
+	UserID    string
+	Content   string
+	ImageUrl  string
+	Deleted   bool
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
+}
+
 type OauthAccount struct {
 	ID             string
 	UserID         string
