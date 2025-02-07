@@ -28,8 +28,7 @@ var Upgrader = websocket.Upgrader{
 
 		// List of allowed origins
 		allowedOrigins := []string{
-			"https://your-production-domain.com",
-			"https://api.your-production-domain.com",
+			"https://go-community.thecodingmontana.com",
 			// Add any other allowed domains
 		}
 
