@@ -31,17 +31,6 @@ useHead({
             class="relative z-10 flex h-screen w-screen flex-col overflow-hidden overflow-y-auto"
           >
             <div
-              class="flex flex-col items-center py-5 text-center text-sm font-medium sm:flex-row sm:items-center sm:justify-center sm:gap-2"
-            >
-              Already have an account?
-              <NuxtLink
-                class="font-semibold text-brand hover:underline dark:text-primary"
-                to="/auth/signin"
-              >
-                Signin
-              </NuxtLink>
-            </div>
-            <div
               class="container mx-auto flex h-[100vh-60px] max-w-lg grow flex-col justify-center px-10 transition-all lg:max-w-md lg:px-5"
             >
               <div class="relative flex flex-col space-y-6">
@@ -68,6 +57,17 @@ useHead({
                   <hr class="w-full">
                 </div>
                 <OauthProviders />
+                <div
+                  class="flex flex-col items-center text-center text-sm font-medium sm:flex-row sm:items-center sm:justify-center sm:gap-2"
+                >
+                  Already have an account?
+                  <NuxtLink
+                    class="font-semibold text-brand hover:underline dark:text-primary"
+                    to="/auth/signin"
+                  >
+                    Signin
+                  </NuxtLink>
+                </div>
               </div>
             </div>
           </div>
