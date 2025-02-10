@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     'nuxt-og-image',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
+    '@nuxt/image',
   ],
   devtools: { enabled: true },
   site: {
