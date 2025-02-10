@@ -46,3 +46,15 @@ export interface ModalStore {
 
 export const githubUrl = 'https://github.com/thecodingmontana/go-community.git'
 export const twitterUrl = 'https://x.com/codewithmontana'
+
+export interface SelectedFile {
+  name: string
+  fileUrl: string
+  size: string
+}
+
+export interface SelectedImage {
+  name: string
+  imageUrl: string
+  size: string
+}

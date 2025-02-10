@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ChatHeader from '~/components/chat/ChatHeader.vue'
+
 definePageMeta({
   layout: 'chat',
 })
@@ -13,12 +15,12 @@ useHead({
   titleTemplate: '%s - Chat',
 })
 
-const { status } = useWs()
+const { status, send } = useWs()
 </script>
 
 <template>
   <section class="flex h-screen w-full flex-col bg-[#f8f8f8]">
-    {{ status }}
+    <ChatHeader :status="status" />
     <!-- <ChatHeader :group="props?.group" :status="status" />
         <ChatMessages
           :socketMessages="messages"
@@ -27,5 +29,6 @@ const { status } = useWs()
         />
         <ChatInput :send="send" /> -->
     <!-- <ChatInput :send="send" /> -->
+    <ChatInput :send="send" />
   </section>
 </template>
