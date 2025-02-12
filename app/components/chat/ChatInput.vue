@@ -122,6 +122,7 @@ const uploadFileToCloudinary = async (result: string) => {
     position: 'top-right',
   })
 
+  // remove this
   const { data, error } = await useFetch('/api/file/upload', {
     method: 'POST',
     body: {
