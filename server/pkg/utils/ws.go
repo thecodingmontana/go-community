@@ -1,12 +1,17 @@
 package utils
 
 import (
+	"context"
+	"encoding/json"
 	"log"
 	"net/http"
 	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
+	"github.com/thecodingmontana/go-community/internal/database/models"
+	"github.com/thecodingmontana/go-community/pkg/types"
 )
 
 const (
@@ -66,7 +71,7 @@ func (client *Client) ReadPump(hub *Hub) {
 	})
 
 	for {
-		messageType, message, err := client.Conn.ReadMessage()
+		_, rawMessage, err := client.Conn.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("error: %v", err)
@@ -74,13 +79,69 @@ func (client *Client) ReadPump(hub *Hub) {
 			break
 		}
 
-		// Only process text messages
-		if messageType != websocket.TextMessage {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+
+		// Parse the incoming message
+		var msg types.SocketMessage
+		if err := json.Unmarshal(rawMessage, &msg); err != nil {
+			log.Printf("Error unmarshaling message: %v", err)
 			continue
 		}
 
-		log.Printf("Received message: %s", message)
-		hub.Broadcast <- message
+		switch msg.Type {
+		case "message":
+			var chatMsg types.ChatMessage
+			if err := json.Unmarshal(msg.Payload, &chatMsg); err != nil {
+				log.Printf("Error unmarshaling chat message: %v", err)
+				continue
+			}
+
+			// save message to DB
+			savedMessage, errSavedMessage := client.Queries.AddNewMessage(ctx, models.AddNewMessageParams{
+				ID:       uuid.New().String(),
+				UserID:   chatMsg.User.ID,
+				Content:  chatMsg.Content,
+				ImageUrl: chatMsg.ImageURL,
+			})
+
+			if errSavedMessage != nil {
+				log.Printf("failed to save message: %v", errSavedMessage)
+				continue
+			}
+
+			chatResponse := types.ChatResponse{
+				ID:      savedMessage.ID,
+				Content: savedMessage.Content,
+				User: types.User{
+					ID:            chatMsg.User.ID,
+					Email:         chatMsg.User.Email,
+					Username:      chatMsg.User.Avatar,
+					EmailVerified: chatMsg.User.EmailVerified,
+					Avatar:        chatMsg.User.Avatar,
+				},
+				ImageURL:  savedMessage.ImageUrl,
+				Deleted:   savedMessage.Deleted,
+				UpdatedAt: savedMessage.UpdatedAt.Time.String(),
+				CreatedAt: savedMessage.CreatedAt.Time.String(),
+			}
+
+			response := types.SocketMessage{
+				Type: "message",
+				Payload: func() json.RawMessage {
+					data, _ := json.Marshal(chatResponse)
+					return data
+				}(),
+			}
+
+			data, marshallErr := json.Marshal(response)
+			if marshallErr != nil {
+				log.Printf("Error marshaling response: %v", err)
+				continue
+			}
+			hub.Broadcast <- data
+		}
+		// Context is automatically cancelled here due to defer
 	}
 }
 

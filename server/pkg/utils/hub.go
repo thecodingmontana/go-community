@@ -32,6 +32,7 @@ func (hub *Hub) Run() {
 			// Register new client
 			hub.Mutex.Lock()
 			hub.Clients[client] = true
+			hub.broadcastStats()
 			hub.Mutex.Unlock()
 		case client := <-hub.Unregister:
 			// Unregister client
@@ -39,14 +40,12 @@ func (hub *Hub) Run() {
 			if _, ok := hub.Clients[client]; ok {
 				delete(hub.Clients, client)
 				close(client.Send)
+				hub.broadcastStats()
 			}
 			hub.Mutex.Unlock()
 		case message := <-hub.Broadcast:
 			// Send message to all clients
 			hub.Mutex.Lock()
-			var msg types.SocketMessage
-			json.Unmarshal(message, &msg)
-			log.Print(msg)
 			log.Printf("Broadcasting message to %d clients", len(hub.Clients))
 			for client := range hub.Clients {
 				select {
@@ -61,6 +60,34 @@ func (hub *Hub) Run() {
 				}
 			}
 			hub.Mutex.Unlock()
+		}
+	}
+}
+
+func (hub *Hub) broadcastStats() {
+	response := types.SocketMessage{
+		Type: "stats",
+		Payload: func() json.RawMessage {
+			payload := map[string]interface{}{
+				"onlineUsers": len(hub.Clients),
+			}
+			data, _ := json.Marshal(payload)
+			return data
+		}(),
+	}
+
+	data, err := json.Marshal(response)
+	if err != nil {
+		log.Printf("error marshaling stats: %v", err)
+		return
+	}
+
+	for client := range hub.Clients {
+		select {
+		case client.Send <- data:
+		default:
+			close(client.Send)
+			delete(hub.Clients, client)
 		}
 	}
 }

@@ -13,6 +13,7 @@ type Message struct {
 	UserID    string
 	Content   string
 	ImageUrl  string
+	FileUrl   string
 	Deleted   bool
 	CreatedAt pgtype.Timestamp
 	UpdatedAt pgtype.Timestamp

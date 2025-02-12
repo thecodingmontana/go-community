@@ -58,3 +58,23 @@ export interface SelectedImage {
   imageUrl: string
   size: string
 }
+
+export interface ChatMessage {
+  user: User
+  id: string
+  content: string
+  image_url: string
+  created_at: string
+  updated_at: string
+  file_url: string
+}
+
+export interface SocketData {
+  type: 'message' | 'history' | 'stats'
+  payload: ChatMessage | ChatMessage[]
+}
+
+export interface Stats {
+  onlineUsers: number
+  totalUsers: number
+}

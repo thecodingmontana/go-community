@@ -19,6 +19,8 @@ const props = defineProps<{
   send: (data: string | ArrayBuffer | Blob, useBuffer?: boolean) => boolean
 }>()
 
+const user = useAuthenticatedUser()
+
 const message = ref('')
 const selectedImage = ref<SelectedImage | null>(null)
 const selectedFile = ref<SelectedFile | null>(null)
@@ -40,9 +42,11 @@ const onClearSelectedFile = () => {
 
 const sendMessage = async () => {
   console.log(props)
-  //   if (!message.value && !selectedImage.value && !selectedFile.value) {
-  //     return toast('Message is required!')
-  //   }
+  if (!message.value && !selectedImage.value && !selectedFile.value) {
+    return toast.error('Message is required!', {
+      position: 'top-center',
+    })
+  }
 
   //   const socketMessage: SentSocketMessage = {
   //     content: message.value,
@@ -69,12 +73,17 @@ const sendMessage = async () => {
   //     socketMessage.file.name = selectedFile.value.name
   //     socketMessage.file.size = selectedFile.value.size
   //   }
-
-//   props?.send(JSON.stringify(socketMessage))
-//   message.value = ''
-//   onClearSelectedImages()
-//   onClearSelectedFile()
-//   await refreshNuxtData()
+  props?.send(JSON.stringify({
+    type: 'message',
+    payload: {
+      content: message.value,
+      image_url: '',
+      user: user.value,
+    },
+  }))
+  message.value = ''
+  onClearSelectedImages()
+  onClearSelectedFile()
 }
 
 const uploadImageToCloudinary = async (result: string) => {

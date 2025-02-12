@@ -1,5 +1,7 @@
 package types
 
+import "encoding/json"
+
 type APIResponse struct {
 	StatusCode    int         `json:"statusCode"`
 	StatusMessage string      `json:"statusMessage"`
@@ -26,9 +28,25 @@ type User struct {
 	Avatar        string `json:"avatar"`
 }
 
-type SocketMessage struct {
+type ChatMessage struct {
 	ID       int    `json:"id"`
 	Content  string `json:"content"`
-	UserID   string `json:"user_id"`
 	ImageURL string `json:"image_url"`
+	User     User   `json:"user"`
+}
+
+type SocketMessage struct {
+	Type    string          `json:"type"`
+	Payload json.RawMessage `json:"payload"`
+}
+
+type ChatResponse struct {
+	ID        string `json:"id"`
+	Content   string `json:"content"`
+	User      User   `json:"user"`
+	ImageURL  string `json:"image_url"`
+	FileURL   string `json:"file_url"`
+	Deleted   bool   `json:"deleted"`
+	UpdatedAt string `json:"updated_at"`
+	CreatedAt string `json:"created_at"`
 }

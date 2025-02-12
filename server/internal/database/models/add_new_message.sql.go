@@ -9,9 +9,10 @@ import (
 	"context"
 )
 
-const addNewMessage = `-- name: AddNewMessage :exec
-INSERT INTO "messages"(id, user_id, content, image_url)
-VALUES($1, $2, $3, $4)
+const addNewMessage = `-- name: AddNewMessage :one
+INSERT INTO "messages"(id, user_id, content, image_url, file_url)
+VALUES($1, $2, $3, $4, $5)
+RETURNING id, user_id, content, image_url, file_url, deleted, created_at, updated_at
 `
 
 type AddNewMessageParams struct {
@@ -19,14 +20,27 @@ type AddNewMessageParams struct {
 	UserID   string
 	Content  string
 	ImageUrl string
+	FileUrl  string
 }
 
-func (q *Queries) AddNewMessage(ctx context.Context, arg AddNewMessageParams) error {
-	_, err := q.db.Exec(ctx, addNewMessage,
+func (q *Queries) AddNewMessage(ctx context.Context, arg AddNewMessageParams) (Message, error) {
+	row := q.db.QueryRow(ctx, addNewMessage,
 		arg.ID,
 		arg.UserID,
 		arg.Content,
 		arg.ImageUrl,
+		arg.FileUrl,
 	)
-	return err
+	var i Message
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Content,
+		&i.ImageUrl,
+		&i.FileUrl,
+		&i.Deleted,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
 }
